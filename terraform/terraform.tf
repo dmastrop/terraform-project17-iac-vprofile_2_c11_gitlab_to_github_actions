@@ -40,8 +40,8 @@ terraform {
   }
 
   # this is the miniumum version of terraform to use
-  #required_version = "~> 1.6.3"
-  required_version = 1.6.6
+  required_version = "~> 1.6.3"
+  #required_version = 1.6.6
 }
 ##
 ##
