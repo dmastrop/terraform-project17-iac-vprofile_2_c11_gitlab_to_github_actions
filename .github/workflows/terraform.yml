@@ -54,7 +54,7 @@ jobs:
         # https://github.com/marketplace/actions/hashicorp-setup-terraform
         #with:
           #terraform_version: 1.6.3
-          terraform_version: 1.6.3
+          #terraform_version: 1.6.3
           # comment this out to use the latest version of terraform.
       
       - name: Terraform init
