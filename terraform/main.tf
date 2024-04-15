@@ -5,6 +5,7 @@ provider "kubernetes" {
 
 provider "aws" {
   region = var.region
+  # see variables.tf for var.region
 }
 
 data "aws_availability_zones" "available" {}
@@ -13,6 +14,7 @@ data "aws_availability_zones" "available" {}
 
 locals {
   cluster_name = var.clusterName
+  # see variables.tf for var.clusterName
 }
 
 ##

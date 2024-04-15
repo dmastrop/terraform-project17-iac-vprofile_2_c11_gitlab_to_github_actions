@@ -5,6 +5,7 @@ module "eks" {
   version = "19.19.1"
 
   cluster_name    = local.cluster_name
+  # see main.tf file for locals block
   cluster_version = "1.27"
 
   vpc_id                         = module.vpc.vpc_id
