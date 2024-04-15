@@ -8,6 +8,8 @@ provider "aws" {
 }
 
 data "aws_availability_zones" "available" {}
+# used in the vpc.tf in the slice function to specify the availability zones.
+# This above will give a list of all the availablity zones 
 
 locals {
   cluster_name = var.clusterName

@@ -1,3 +1,4 @@
+# keep these versions the same as they are pre-tested
 terraform {
   required_providers {
     aws = {
@@ -27,11 +28,18 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "gitopsterrastate"
+    #bucket = "gitopsterrastate"
+    bucket = "terraform-state-project17-vprofile-gitops"
+    # if this backend is not specified then terraform.tfstate will be created locally
+    # we will be running this on github actions, and github actions uses a runner container which will be destroyed after
+    # terraform scripts executed. The tfstate will be removed with this, so need an external terraform state decoupled from execution on github.
     key    = "terraform.tfstate"
-    region = "us-east-2"
+    # this key will be created on the S3 bucket.
+    #region = "us-east-2"
+    region = "us-east-1"
   }
 
+  # this is the miniumum version of terraform to use
   required_version = "~> 1.6.3"
 }
 ##
