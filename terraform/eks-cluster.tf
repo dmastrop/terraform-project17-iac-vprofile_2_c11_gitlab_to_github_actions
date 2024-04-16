@@ -4,13 +4,13 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.19.1"
 
-  cluster_name    = local.cluster_name
+  cluster_name = local.cluster_name
   # see main.tf file for locals block
   cluster_version = "1.27"
 
-  vpc_id                         = module.vpc.vpc_id
+  vpc_id = module.vpc.vpc_id
   # this is from the vpc.tf file
-  subnet_ids                     = module.vpc.private_subnets
+  subnet_ids = module.vpc.private_subnets
   # this is from the vpc.tf file
   cluster_endpoint_public_access = true
   # this cluster endpoint will be used by kubeconfig file for kubectl access from the terminal, etc....
@@ -20,7 +20,7 @@ module "eks" {
 
   }
 
-# create two node groups. Node group is basically like an auto-scaling group
+  # create two node groups. Node group is basically like an auto-scaling group
   eks_managed_node_groups = {
     one = {
       name = "node-group-1"

@@ -33,7 +33,7 @@ terraform {
     # if this backend is not specified then terraform.tfstate will be created locally
     # we will be running this on github actions, and github actions uses a runner container which will be destroyed after
     # terraform scripts executed. The tfstate will be removed with this, so need an external terraform state decoupled from execution on github.
-    key    = "terraform.tfstate"
+    key = "terraform.tfstate"
     # this key will be created on the S3 bucket.
     #region = "us-east-2"
     region = "us-east-1"

@@ -17,13 +17,13 @@ module "vpc" {
   private_subnets = ["172.20.1.0/24", "172.20.2.0/24", "172.20.3.0/24"]
   public_subnets  = ["172.20.4.0/24", "172.20.5.0/24", "172.20.6.0/24"]
 
-  enable_nat_gateway   = true
-  single_nat_gateway   = true
+  enable_nat_gateway = true
+  single_nat_gateway = true
   # we don't want three per the azs above. Keep it to one for testing.
   enable_dns_hostnames = true
 
 
-# tags for subnets are required in EKS as part of k8s.
+  # tags for subnets are required in EKS as part of k8s.
   public_subnet_tags = {
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                      = 1
