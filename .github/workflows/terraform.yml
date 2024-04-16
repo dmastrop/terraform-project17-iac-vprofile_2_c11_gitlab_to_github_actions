@@ -96,6 +96,10 @@ jobs:
         # any nonzero failure code is fine
         # container will be killed and job will fail
 
+
+     # The following steps will only execute with a push to the main branch (except for Configure AWS credentials, this will be
+     # executed with either push to stage or push to main)   
+
       - name: Terraform Apply (only push and only if push to main)
       # planfile is the output file from the terraform plan step above. We will apply this terraform plan.
         id: apple
