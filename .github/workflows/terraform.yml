@@ -52,7 +52,7 @@ jobs:
       # Runners do not come pre-installed with terraform
         uses: hashicorp/setup-terraform@v2
         # https://github.com/marketplace/actions/hashicorp-setup-terraform
-        #with:
+        with:
           #terraform_version: 1.6.3
           terraform_version: 1.6.6
           # comment this out to use the latest version of terraform.
