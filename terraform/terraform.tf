@@ -49,7 +49,7 @@ terraform {
 
 #### REVERT to this to do the terraform init and terraform destroy from the VSCode when complete  
   #required_version = "~> 1.5.1"
-  # i can leave this because the actual version used on the runner will be in terraform.yml and that is hardcoded to 1.6.6
+  
 }
 ##
 ##
