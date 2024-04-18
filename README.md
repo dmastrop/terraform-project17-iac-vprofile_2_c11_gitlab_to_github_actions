@@ -1,5 +1,8 @@
 Project 17. main-terraform-project17-iac-vprofile local workspace, terraform-project17-iac-vprofile remote github repo
 
+
+# Basic process flow
+
 THere are two terraform branches in this workspace, a staging branch (stage) and a main branch.
 The .github workflow steps are such that only the terraform validate, terraform, validate, terraform plan, etc are 
 executed with a push from local to remote on stage branch.   The other steps consist of the following
@@ -26,6 +29,139 @@ Then on local workspace can do a git pull from remote to local on main branch to
 
 The second local workspace is application-code-project17-vprofile-action and the remote for this is application-code-project17-vprofile-action. This is for the applicaton deployment onto the EKS frontend server 
 See the README for that repository.
+
+
+
+# Terraform destroy
+
+the scripts for this are not complete yet.  For now do the following:
+
+in a new terminal
+export AWS_PROIFLE=project17-k8s-EKS-user
+
+
+
+confirm with aws configure list;
+
+% aws configure list
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile   project17-k8s-EKS-user              env    ['AWS_PROFILE', 'AWS_DEFAULT_PROFILE']
+access_key     ******************** shared-credentials-file    
+secret_key     ******************** shared-credentials-file    
+    region                us-east-1      config-file    ~/.aws/config
+
+
+next, set KUBECONFIG so that exisitng ~/.kube/config is not overwritten
+
+export KUBECONFIG=(path to kubeconfig for this project)
+echo $KUBECONFIG
+
+
+Next, execute the following to pull the .kube/config off of the controller on the deployed EKS cluster
+aws eks update-kubeconfig --region us-east-1 --name project17-eks-vprofile
+
+
+test with 
+kubectl get nodes
+kubectl get pods -n ingress-nginx
+kubectl get ns
+kubectl get service -n ingress-nginx
+kubectl get pods -n kube-system
+etc.....
+
+
+Delete the nginx controller
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
+
+cd into /terraform directory
+
+in terraform.tf change required_version temporarily to 1.5.1
+  required_version = "~> 1.5.1"
+
+download the s3 bucket file in terraform-state-project17-vprofile-gitops for backup
+
+do the terraform init
+terraform init -backend-config="bucket=terraform-state-project17-vprofile-gitops"
+
+do the terraform destroy
+
+revert the 1.5.1 back to 1.6.6 for the required_version in terraform.tf file
+
+
+
+# to view the node and pod information in AWS console with root user, do the following (otherwise this information is not shown)
+
+Step1:
+First as shown in video create a new token access key and secret for the IAM user that was used to create the EKS cluster (it must be the same user that you configured in the Github secrets, but can be new keys.  If you try to use a different IAM user even with Admin access this will fail.)
+
+verify the new key with "aws configure list" in the terminal
+
+Step2:
+what i do in this terminal is use KUBECONFIG variable and export a new path to the kubeconfig file because I don't want to overwrite my existing .kube/config file that is using docker k8s.   
+
+export KUBECONFIG=(new path to .kube/config file)
+
+Note you must have a dummy config file (zero bytes is fine) for this to work. It will fill it in with the .kube/config file from the controller node in the cluster, once you run step3 below
+
+Step3:  fill in the AWS_REGION and EKS_CLUSTER as indicated in the video for your setup
+1.	aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER }}
+
+Step4:
+verify kubectl is working by running a simple kubectl get nodes
+
+
+Step5:
+Next run this command to edit the configmap on the k8s controller in the EKS cluster
+
+
+kubectl edit configmap aws-auth -n kube-system
+
+
+This will open a vi editor.  
+
+
+Step6:  Add the following line below using your specific account ID (12 digit account id in upper right corner when you are logged into AWS web console)
+
+1.	  mapUsers: "- groups: \n  - system:masters\n  userarn: arn:aws:iam::671177010163:root\n"
+
+the complete file will look something similar to this, but the only line added is this mapUsers line
+Make sure it is at the same indentation as mapRoles
+1.	apiVersion: v1
+2.	data:
+3.	  mapRoles: |
+4.	    - groups:
+5.	      - system:bootstrappers
+6.	      - system:nodes
+7.	      rolearn: arn:aws:iam::671177010163:role/eksctl-manu-eks-new2-nodegroup-ng-NodeInstanceRole-1NYUHVMYFP2TK
+8.	      username: system:node:{{EC2PrivateDNSName}}
+9.	  mapUsers: "- groups: \n  - system:masters\n  userarn: arn:aws:iam::671177010163:root\n"
+10.	kind: ConfigMap
+11.	metadata:
+12.	  creationTimestamp: "2022-02-13T11:03:30Z"
+13.	  name: aws-auth
+14.	  namespace: kube-system
+15.	  resourceVersion: "11362"
+16.	  uid: ac36a1d9-76bc-40dc-95f0-b1e7934357
+
+
+
+Step7:
+save the file (vi editor save) and you will see the new config map loaded
+
+kubectl edit configmap aws-auth -n kube-system
+configmap/aws-auth edited
+
+
+
+Step8: refresh the root AWS Web console user browser and the nodes and all node information will show up and the "error" banner will no longer show.
+
+
+
+
+
+
+
 
 
 
