@@ -158,6 +158,37 @@ Step8: refresh the root AWS Web console user browser and the nodes and all node 
 
 
 
+# General review of steps to get the entire setup up
+
+Stage1
+In terraform workspace
+1.	Git checkout stage
+2.	Git push origin stage
+3.	Git checkout main
+4.	Git merge stage
+5.	Git push origin main
+
+Stage2
+Once infra is up go to application workspace: git push origin main
+This will run a new build and deploy the helm chart based on yml files in templates folder
+
+Stage3
+Add a CNAME entry in Google Cloud DNS for holinessinloveofchrist.com domain
+Vprofile-project17.holinessinloveofchrist.com
+
+# General review to destroy 
+
+
+From the kubectl terminal and from the /terraform directory in the first repo (either branch, main or stage is fine)
+1.	Remove the nginix controller
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
+        1.b. optional: helm uninstall vprofile-stack (this is not absolutely necessary)
+2.	Edit the terraform.tf to version 1.5.1 temporarily
+3.	Download current s3 bucket in case something fails
+4.	Run terraform init on the bucket
+terraform init -backend-config="bucket=terraform-state-project17-vprofile-gitops”
+5.	Terraform destroy
+6.	Revert the 1.5.1 version in terraform.tf back to 1.6.6 with: git reset --hard HEAD
 
 
 
