@@ -31,7 +31,9 @@ jobs:
     # name of the job
     name: "Apply terraform code changes"
     # runner is on github. Use ubuntu-latest for maven, java, and nodejs
-    runs-on: ubuntu-latest
+
+    runs-on: ubuntu-20.04
+    #runs-on: ubuntu-latest
     # the runner will be on an ubuntu-latest container
     defaults:
       run:
