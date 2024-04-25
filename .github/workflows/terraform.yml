@@ -134,13 +134,13 @@ jobs:
         # this can only be done if the terraform apply in id:apple is a success and EKS cluster is up and running
         run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER }}
 
-      # ## temporarily comment this out
-      # # Next, Install the nginx ingress controller(frontend) onto the k8s cluster. This can be done through kubectl apply below
-      # # This can only be done if both the terraform apply is successful and the kubeconfig file is updated on the github runner from the k8s controller 
-      # # running in the EKS cluster.  kubectl can only be run if the kubeconfig file is on the runner (see previous step)
-      # - name: Install Ingress Controller
-      #   if: steps.apple.outcome == 'success' && steps.getconfig.outcome == 'success'
-      #   run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
+      ## temporarily comment this out
+      # Next, Install the nginx ingress controller(frontend) onto the k8s cluster. This can be done through kubectl apply below
+      # This can only be done if both the terraform apply is successful and the kubeconfig file is updated on the github runner from the k8s controller 
+      # running in the EKS cluster.  kubectl can only be run if the kubeconfig file is on the runner (see previous step)
+      - name: Install Ingress Controller
+        if: steps.apple.outcome == 'success' && steps.getconfig.outcome == 'success'
+        run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/aws/deploy.yaml
 
 
 
