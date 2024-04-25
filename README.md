@@ -192,22 +192,22 @@ terraform init -backend-config="bucket=terraform-state-project17-vprofile-gitops
 
 
 
-## Added as self-hosted github runner ubuntu22 on EC2 on AWS2
+# Added as self-hosted github runner ubuntu22 on EC2 on AWS2
 
 see word doc on this.
 
-# sudo apt udpate
+## sudo apt udpate
 
-# also install unzip
+## also install unzip
 sudo apt-get install unzip
 
-# also install node js
+## also install node js
 sudo apt install nodejs
 
-# create a symlink of the node js
+## create a symlink of the node js
 ln -s /usr/bin/nodejs /usr/bin/node
 
-# install aws cli
+## install aws cli
 DO NOT DO THIS:
 sudo apt update
 sudo apt install awscli -y
@@ -240,12 +240,12 @@ verify with aws --version
 
 
 
-# to remove aws v1 do this
+## to remove aws v1 do this
 sudo apt-get remove --auto-remove awscli
 
 
 
-# install kubectl
+## install kubectl
 
 For EKS cluster runnint 1.27 i found that kubectl must be running 1.26.3 and aws must be on v2
 there are lots of api issues with other versions from my testing.
@@ -268,7 +268,7 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 verify with: kubectl version --client
 
 
-# these versions are compatible with an EKS 1.27 cluster
+## these versions are compatible with an EKS 1.27 cluster
 
 ubuntu@ip-172-31-41-217:~$ aws --version
 aws-cli/2.15.41 Python/3.11.8 Linux/6.5.0-1018-aws exe/x86_64.ubuntu.22 prompt/off
