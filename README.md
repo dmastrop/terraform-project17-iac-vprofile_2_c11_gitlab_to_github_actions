@@ -192,28 +192,91 @@ terraform init -backend-config="bucket=terraform-state-project17-vprofile-gitops
 
 
 
-# Added as self-hosted github runner ubuntu22 on EC2 on AWS2
+## Added as self-hosted github runner ubuntu22 on EC2 on AWS2
 
 see word doc on this.
-sudo apt udpate
 
-also install unzip
+# sudo apt udpate
+
+# also install unzip
 sudo apt-get install unzip
 
-also install node js
+# also install node js
 sudo apt install nodejs
 
-create a symlink of the node js
+# create a symlink of the node js
 ln -s /usr/bin/nodejs /usr/bin/node
 
-install aws cli
+# install aws cli
+DO NOT DO THIS:
 sudo apt update
 sudo apt install awscli -y
 
-install kubectl
+to install aws cli do it this way for fresh install of version 2:
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+if aws version 1 was recently removed then clear the bash cache to get the correct path:
+ubuntu@ip-172-31-41-217:~$ aws --version
+-bash: /usr/bin/aws: No such file or directory
+
+
+ubuntu@ip-172-31-41-217:~$ which aws
+/usr/local/bin/aws
+
+ubuntu@ip-172-31-41-217:~$ hash aws
+
+ubuntu@ip-172-31-41-217:~$ aws --version
+aws-cli/2.15.41 Python/3.11.8 Linux/6.5.0-1018-aws exe/x86_64.ubuntu.22 prompt/off
+
+ubuntu@ip-172-31-41-217:~$ which aws
+/usr/local/bin/aws
+
+ubuntu@ip-172-31-41-217:~$ hash -t aws
+/usr/local/bin/aws
+
+verify with aws --version
 
 
 
+# to remove aws v1 do this
+sudo apt-get remove --auto-remove awscli
+
+
+
+# install kubectl
+
+For EKS cluster runnint 1.27 i found that kubectl must be running 1.26.3 and aws must be on v2
+there are lots of api issues with other versions from my testing.
+
+to uninstall kubectl:
+sudo rm /usr/local/bin/kubectl
+Also delete the contents of the ~/.kube directory as well.
+
+to install a specific version of kubectl rather than "stable" which is latest, do the following:
+I don't recommmend just installing latest due to issues mentioned above with established EKS cluster versions
+
+
+curl -LO https://dl.k8s.io/release/v1.26.3/bin/linux/amd64/kubectl
+
+
+curl -LO https://dl.k8s.io/release/1.26.3/bin/linux/amd64/kubectl.sha256
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+verify with: kubectl version --client
+
+
+# these versions are compatible with an EKS 1.27 cluster
+
+ubuntu@ip-172-31-41-217:~$ aws --version
+aws-cli/2.15.41 Python/3.11.8 Linux/6.5.0-1018-aws exe/x86_64.ubuntu.22 prompt/off
+
+ubuntu@ip-172-31-41-217:~$ kubectl version --client
+WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
+Client Version: version.Info{Major:"1", Minor:"26", GitVersion:"v1.26.3", GitCommit:"9e644106593f3f4aa98f8a84b23db5fa378900bd", GitTreeState:"clean", BuildDate:"2023-03-15T13:40:17Z", GoVersion:"go1.19.7", Compiler:"gc", Platform:"linux/amd64"}
+Kustomize Version: v4.5.7
 
 
 # Terraform code 
