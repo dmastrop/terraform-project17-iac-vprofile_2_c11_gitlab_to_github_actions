@@ -192,6 +192,19 @@ terraform init -backend-config="bucket=terraform-state-project17-vprofile-gitops
 
 
 
+# Added as self-hosted github runner ubuntu22 on EC2 on AWS2
+
+see word doc on this.
+sudo apt udpate
+
+also install unzip
+sudo apt-get install unzip
+
+also install node js
+sudo apt install nodejs
+
+create a symlink of the node js
+ln -s /usr/bin/nodejs /usr/bin/node
 
 
 
