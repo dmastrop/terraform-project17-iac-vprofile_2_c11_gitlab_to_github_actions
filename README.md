@@ -206,6 +206,13 @@ sudo apt install nodejs
 create a symlink of the node js
 ln -s /usr/bin/nodejs /usr/bin/node
 
+install aws cli
+sudo apt update
+sudo apt install awscli -y
+
+install kubectl
+
+
 
 
 
