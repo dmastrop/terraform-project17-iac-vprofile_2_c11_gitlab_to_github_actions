@@ -33,11 +33,11 @@ jobs:
     name: "Apply terraform code changes"
     # runner is on github. Use ubuntu-latest for maven, java, and nodejs
 
-    #runs-on: ubuntu-20.04
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    #runs-on: ubuntu-latest
     # the runner will be on an ubuntu-latest container. Use ubuntu-latest for github runner
 
-   # runs-on: self-hosted
+    # runs-on: self-hosted
     # this is my self-hosted runner on EC2. Try this out.
 
 
