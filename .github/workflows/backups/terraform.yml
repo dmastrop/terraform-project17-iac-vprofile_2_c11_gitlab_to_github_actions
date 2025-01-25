@@ -1,29 +1,19 @@
 # Github workflow for terraform IaaC with github actions
 name: "Vprofile IAC"
-# on: 
-#   push:
-#     branches:
-#       - main
-#       - stage
-#     paths:
-#       - terraform/**
-#       # any changes in this folder and if main or stage branch and if push then the workflow will get triggered
-#   pull_request:
-#     branches:
-#       - main
-#       # when this pull request gets triggered this will trigger the workflow
-#     paths:
-#       - terraform/**
-
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+on: 
   push:
-    branches: [ "main” “stage” ]
-    paths: [ “terraform/**” ]
+    branches:
+      - main
+      - stage
+    paths:
+      - terraform/**
+      # any changes in this folder and if main or stage branch and if push then the workflow will get triggered
   pull_request:
-    branches: [ "main" ]
-    paths: [ “terraform/**” ]
-      
+    branches:
+      - main
+      # when this pull request gets triggered this will trigger the workflow
+    paths:
+      - terraform/**
 
 env:
   # Credentials for deployment to AWS with IAM Admin user
