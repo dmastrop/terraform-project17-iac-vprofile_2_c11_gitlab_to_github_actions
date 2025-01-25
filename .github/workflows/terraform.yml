@@ -14,7 +14,7 @@ on:
       - main
       # when this pull request gets triggered this will trigger the workflow
     paths:
-      - "terraform/**
+      - "terraform/**"
 
 # on:
 #   # Triggers the workflow on push or pull request events but only for the "main" branch
