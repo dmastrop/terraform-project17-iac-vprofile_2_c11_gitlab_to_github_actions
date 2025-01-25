@@ -18,12 +18,12 @@ name: "Vprofile IAC"
 
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
+  push_request:
     branches: [ "main" "stage" ]
-    #paths: [ “terraform/**” ]
+    paths: [ “terraform/**” ]
   pull_request:
     branches: [ "main" ]
-    #paths: [ “terraform/**” ]
+    paths: [ “terraform/**” ]
 
       
 
