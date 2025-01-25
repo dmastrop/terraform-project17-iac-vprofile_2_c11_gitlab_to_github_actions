@@ -39,7 +39,7 @@ terraform {
     region = "us-east-1"
   }
 
-  # this is the miniumum version of terraform to use
+  # this is the miniumum version of terraform to use. 1.USE THIS FOR COMMITS TO BRING SETUP UP
   required_version = "~> 1.6.3"
 
 #### USE THIS ONE FOR staging and deployment
@@ -47,7 +47,7 @@ terraform {
 
   #required_version = 1.6.6
 
-#### REVERT to this to do the terraform init and terraform destroy from the VSCode when complete  
+#### 2.REVERT to this to do the terraform init and terraform destroy from the VSCode when complete  
   #required_version = "~> 1.5.1"
   
 }
