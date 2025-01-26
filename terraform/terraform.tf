@@ -47,7 +47,7 @@ terraform {
 
   #required_version = 1.6.6
 
-#### 2.REVERT to this to do the terraform init and terraform destroy from the VSCode when complete  
+##### 2.REVERT to this to do the terraform init and terraform destroy from the VSCode when complete  
   #required_version = "~> 1.5.1"
   
 }
