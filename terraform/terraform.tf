@@ -1,4 +1,4 @@
-# keep these versions the same as they are pre-tested
+#  keep these versions the same as they are pre-tested
 terraform {
   required_providers {
     aws = {
